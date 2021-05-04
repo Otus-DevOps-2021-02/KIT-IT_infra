@@ -1,0 +1,14 @@
+#[app]  # ⬅ Это название группы
+#ppserver ansible_host=178.154.200.46 # ⬅ Cписок хостов в данной группе
+#[db]
+#dbserver ansible_host=178.154.201.81
+---
+  app:
+    hosts:
+      appserver:
+        ansible_host: 178.154.200.46
+
+  db:
+    hosts:
+      dbserver:
+        ansible_host: 178.154.201.81
