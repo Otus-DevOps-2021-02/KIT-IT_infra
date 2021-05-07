@@ -8,3 +8,5 @@
 *key.json
 *versions.tf
 *.retry
+*.tf_
+*.retry

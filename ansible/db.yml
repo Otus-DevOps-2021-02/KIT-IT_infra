@@ -1,0 +1,17 @@
+---
+- name: Configure mongod
+  hosts: db
+  become: true # <-- Выполнить задание от root
+  vars:
+    mongo_bind_ip: 0.0.0.0
+  tasks:
+    - name: Change mongo config file
+      template:
+        src: templates/mongod.conf.j2 # <-- Путь до локального файла-шаблона
+        dest: /etc/mongod.conf # <-- Путь на удаленном хосте
+        mode: 0644 # <-- Права на файл, которые нужно установить
+      notify: restart mongod
+
+  handlers:
+  - name: restart mongod
+    service: name=mongod state=restarted
