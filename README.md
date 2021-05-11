@@ -63,6 +63,69 @@ testapp_port = 9292
 Проверили через браузер
     http://84.252.129.173:9292/
 ------------------------------
+HW5
+------------------------------
+Создали ветку packer-base
+git checkout -b packer-base
+Создали каталог и перенесли наработки из предыдущего задания
+yc config list
+
+SVC_ACCT="appuser"
+
+FOLDER_ID="b1g484bj5rqea9ljk25h"
+
+yc iam service-account create --name $SVC_ACCT --folder-id $FOLDER_ID
+
+ACCT_ID=$(yc iam service-account get $SVC_ACCT | \
+grep ^id | \
+awk '{print $2}')
+
+yc resource-manager folder add-access-binding --id $FOLDER_ID \
+--role editor \
+--service-account-id $ACCT_ID
+
+yc iam key create --service-account-id $ACCT_ID --output ~/.ssh/key.json
+---
+id: aje1s7uhm1b1t84ldi25
+service_account_id: aje4dauc0070fdkjp876
+created_at: "2021-03-31T19:05:43.412384Z"
+key_algorithm: RSA_2048
+---
+
+Создали каталог packer и файл ubuntu16.json
+type - тип билдера - то, на какой платформе мы создаём образ
+folder_id - идентификатор каталога, в котором будет создан
+образ
+source_image_family - семейство образов, которое мы берём за
+основу. Packer самостоятельно выберет самый свежий образ.
+image_name - имя результирующего образа. В имени
+использована конструкция timestamp, которая гарантирует
+уникальность имени
+image_family - имя семейства, к которому мы отнесём
+результирующий образ
+ssh_username - имя пользователя, который будет использован
+для подключения к ВМ и выполнения provisioning'а
+platform_id - размер ВМ для образа
+
+Проверили файл на валидность
+packer validate ./ubuntu16.json
+
+Создали образ. Внимаение! В провиженеры добавили sleep 30, так как не успевали отрабатываться команды.
+packer build ./ubuntu16.json
+
+Создали ВМ из образа на Yandex Cloud
+
+Авторизовались в ВМ и усатновили Reddit
+sudo apt-get update
+sudo apt-get install -y git
+git clone -b monolith https://github.com/express42/reddit.git
+cd reddit && bundle install
+puma -d
+
+Параметризовали файл.
+
+Запекли кекс Immutable infrastructure
+------------------------------
 HW5 terraform-1
 ------------------------------
 Создали ветку
@@ -729,3 +792,4 @@ changed: [appserver]
 PLAY RECAP ****************************************************************************
 appserver                  : ok=10   changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 dbserver                   : ok=3    changed=2    unreachable=0    failed=0    skipped=0
+=======
