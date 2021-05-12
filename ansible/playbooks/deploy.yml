@@ -5,7 +5,9 @@
   become: true
   tasks:
     - name: insatall git
-      apt: pkg=git state=latest
+      apt:
+        pkg: git
+        state: present
 
     - name: Fetch the latest version of application code
       git:
