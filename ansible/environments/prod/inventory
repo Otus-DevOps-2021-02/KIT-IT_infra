@@ -1,0 +1,4 @@
+[app]  # ⬅ Это название группы
+appserver ansible_host=178.154.206.49 # ⬅ Cписок хостов в данной группе
+[db]
+dbserver ansible_host=178.154.207.190

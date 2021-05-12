@@ -1,0 +1,7 @@
+---
+- name: Configure mongod
+  hosts: db
+  become: true # <-- Выполнить задание от root
+
+  roles:
+    - db
