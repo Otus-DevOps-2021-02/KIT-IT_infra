@@ -10,3 +10,5 @@
 *.retry
 *.tf_
 *.retry
+jdauphant.nginx
+vault.key
