@@ -1,4 +1,4 @@
 ---
-# defaults file for app
-db_host: 127.0.0.1
+db_host: 10.130.0.20
 env: local
+deploy_user: ubuntu

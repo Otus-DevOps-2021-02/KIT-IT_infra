@@ -1,14 +1,7 @@
 ---
-- name: Install Ruby Bundler
+- name: Install Ruby && Bundler
   hosts: app
   become: true
-  tasks:
-    - name: Install ruby, bundler
-      apt:
-       update_cache: yes
-       name: "{{ item }}"
-       state: present
-      loop:
-         - ruby-full
-         - ruby-bundler
-         - build-essential
+  roles:
+   - app
+   - jdauphant.nginx
